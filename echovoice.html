@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Echo Voice by BRIDGENT — Bot głosowy AI dla restauracji i klubów</title>
+    <title>Echo Voice by BRIDGENT — Inteligentny bot głosowy AI dla biznesu</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         * {
             margin: 0;
@@ -30,6 +32,8 @@
             --gray-950: #0d0d0d;
             --black: #000000;
             --green: #22c55e;
+            --blue: #3b82f6;
+            --purple: #8b5cf6;
         }
 
         body {
@@ -67,11 +71,6 @@
         }
 
         .logo-svg {
-            height: 40px;
-            width: auto;
-        }
-
-        .logo img {
             height: 40px;
             width: auto;
         }
@@ -133,6 +132,12 @@
             height: 8px;
             background: var(--green);
             border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
 
         .hero-title {
@@ -141,6 +146,13 @@
             color: var(--white);
             line-height: 1.15;
             margin-bottom: 28px;
+        }
+
+        .hero-title .highlight {
+            background: linear-gradient(135deg, var(--green), var(--blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .hero-desc {
@@ -180,6 +192,11 @@
             border-radius: 20px;
             padding: 32px;
             border: 1px solid var(--gray-850);
+            transition: all 0.3s;
+        }
+
+        .hero-card:hover {
+            border-color: var(--gray-700);
         }
 
         .hero-card h3 {
@@ -192,8 +209,11 @@
             gap: 12px;
         }
 
-        .hero-card h3 span {
-            font-size: 24px;
+        .hero-card h3 svg {
+            width: 24px;
+            height: 24px;
+            stroke-width: 1.5;
+            color: var(--green);
         }
 
         .hero-card p {
@@ -231,13 +251,13 @@
             letter-spacing: 1px;
         }
 
-        /* Features Section */
-        .features {
+        /* Capabilities Section */
+        .capabilities {
             padding: 120px 48px;
             background: var(--gray-900);
         }
 
-        .features-container {
+        .capabilities-container {
             max-width: 1400px;
             margin: 0 auto;
         }
@@ -268,13 +288,13 @@
             max-width: 600px;
         }
 
-        .features-grid {
+        .capabilities-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 20px;
         }
 
-        .feature-card {
+        .capability-card {
             background: var(--gray-850);
             border-radius: 20px;
             padding: 40px;
@@ -282,12 +302,12 @@
             transition: all 0.3s;
         }
 
-        .feature-card:hover {
+        .capability-card:hover {
             border-color: var(--gray-700);
             transform: translateY(-6px);
         }
 
-        .feature-icon {
+        .capability-icon {
             width: 60px;
             height: 60px;
             background: var(--gray-800);
@@ -295,25 +315,217 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
+            color: var(--white);
             margin-bottom: 24px;
         }
 
-        .feature-card:hover .feature-icon {
+        .capability-icon svg {
+            width: 28px;
+            height: 28px;
+            stroke-width: 1.5;
+        }
+
+        .capability-card:hover .capability-icon {
             background: var(--white);
         }
 
-        .feature-card h3 {
+        .capability-card h3 {
             font-size: 20px;
             font-weight: 600;
             color: var(--white);
             margin-bottom: 12px;
         }
 
-        .feature-card p {
+        .capability-card p {
             font-size: 15px;
             color: var(--gray-500);
             line-height: 1.7;
+        }
+
+        /* Automation Section */
+        .automation {
+            padding: 120px 48px;
+        }
+
+        .automation-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .automation-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .automation-card {
+            background: var(--gray-900);
+            border-radius: 24px;
+            padding: 48px;
+            border: 1px solid var(--gray-850);
+            transition: all 0.3s;
+        }
+
+        .automation-card:hover {
+            border-color: var(--gray-700);
+        }
+
+        .automation-card.large {
+            grid-column: span 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .automation-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--gray-850);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            margin-bottom: 24px;
+        }
+
+        .automation-icon svg {
+            width: 28px;
+            height: 28px;
+            stroke-width: 1.5;
+        }
+
+        .automation-card:hover .automation-icon {
+            background: var(--white);
+        }
+
+        .automation-card h3 {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 16px;
+        }
+
+        .automation-card p {
+            font-size: 16px;
+            color: var(--gray-500);
+            line-height: 1.8;
+        }
+
+        .automation-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .automation-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            font-size: 15px;
+            color: var(--gray-400);
+            border-bottom: 1px solid var(--gray-800);
+        }
+
+        .automation-list li:last-child {
+            border-bottom: none;
+        }
+
+        .automation-list li::before {
+            content: '✓';
+            color: var(--green);
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        /* Industries Section */
+        .industries {
+            padding: 120px 48px;
+            background: var(--gray-900);
+        }
+
+        .industries-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .industries-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .industries-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .industry-card {
+            background: var(--gray-850);
+            border-radius: 24px;
+            padding: 48px 36px;
+            border: 1px solid var(--gray-800);
+            transition: all 0.3s;
+        }
+
+        .industry-card:hover {
+            border-color: var(--gray-600);
+            transform: translateY(-8px);
+        }
+
+        .industry-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gray-800);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            margin-bottom: 28px;
+        }
+
+        .industry-icon svg {
+            width: 36px;
+            height: 36px;
+            stroke-width: 1.5;
+        }
+
+        .industry-card:hover .industry-icon {
+            background: var(--white);
+        }
+
+        .industry-card h3 {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 16px;
+        }
+
+        .industry-card p {
+            font-size: 15px;
+            color: var(--gray-500);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .industry-features {
+            list-style: none;
+        }
+
+        .industry-features li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            font-size: 14px;
+            color: var(--gray-400);
+        }
+
+        .industry-features li::before {
+            content: '→';
+            color: var(--green);
         }
 
         /* How it works */
@@ -382,40 +594,39 @@
 
         .benefits-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
         }
 
         .benefit-card {
             background: var(--gray-850);
-            border-radius: 24px;
-            padding: 48px;
+            border-radius: 20px;
+            padding: 40px;
             border: 1px solid var(--gray-800);
             transition: all 0.3s;
         }
 
         .benefit-card:hover {
             border-color: var(--gray-700);
-        }
-
-        .benefit-card.large {
-            grid-column: span 2;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 48px;
-            align-items: center;
+            transform: translateY(-6px);
         }
 
         .benefit-icon {
-            width: 64px;
-            height: 64px;
+            width: 60px;
+            height: 60px;
             background: var(--gray-800);
             border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
+            color: var(--white);
             margin-bottom: 24px;
+        }
+
+        .benefit-icon svg {
+            width: 28px;
+            height: 28px;
+            stroke-width: 1.5;
         }
 
         .benefit-card:hover .benefit-icon {
@@ -423,42 +634,16 @@
         }
 
         .benefit-card h3 {
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 600;
             color: var(--white);
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
 
         .benefit-card p {
-            font-size: 16px;
-            color: var(--gray-500);
-            line-height: 1.8;
-        }
-
-        .benefit-list {
-            list-style: none;
-            margin-top: 20px;
-        }
-
-        .benefit-list li {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 0;
             font-size: 15px;
-            color: var(--gray-400);
-            border-bottom: 1px solid var(--gray-800);
-        }
-
-        .benefit-list li:last-child {
-            border-bottom: none;
-        }
-
-        .benefit-list li::before {
-            content: '✓';
-            color: var(--green);
-            font-weight: 700;
-            font-size: 16px;
+            color: var(--gray-500);
+            line-height: 1.7;
         }
 
         /* Manager Panel Section */
@@ -516,8 +701,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            color: var(--white);
             flex-shrink: 0;
+        }
+
+        .manager-feature-icon svg {
+            width: 20px;
+            height: 20px;
+            stroke-width: 1.5;
         }
 
         .manager-feature h4 {
@@ -594,7 +785,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 16px;
+            color: var(--gray-400);
+        }
+
+        .reservation-avatar svg {
+            width: 16px;
+            height: 16px;
+            stroke-width: 1.5;
         }
 
         .reservation-details h5 {
@@ -623,71 +820,6 @@
         .reservation-status.pending {
             background: rgba(234, 179, 8, 0.15);
             color: #eab308;
-        }
-
-        /* Audience Section */
-        .audience {
-            padding: 120px 48px;
-            background: var(--gray-900);
-        }
-
-        .audience-container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .audience-header {
-            text-align: center;
-            margin-bottom: 64px;
-        }
-
-        .audience-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-        }
-
-        .audience-card {
-            background: var(--gray-850);
-            border-radius: 20px;
-            padding: 48px 32px;
-            text-align: center;
-            border: 1px solid var(--gray-800);
-            transition: all 0.3s;
-        }
-
-        .audience-card:hover {
-            border-color: var(--gray-600);
-            transform: translateY(-8px);
-        }
-
-        .audience-icon {
-            width: 80px;
-            height: 80px;
-            background: var(--gray-800);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 36px;
-            margin: 0 auto 28px;
-        }
-
-        .audience-card:hover .audience-icon {
-            background: var(--white);
-        }
-
-        .audience-card h3 {
-            font-size: 22px;
-            font-weight: 600;
-            color: var(--white);
-            margin-bottom: 12px;
-        }
-
-        .audience-card p {
-            font-size: 14px;
-            color: var(--gray-500);
-            line-height: 1.6;
         }
 
         /* Pricing Section */
@@ -856,8 +988,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
+            color: var(--white);
             margin: 0 auto 20px;
+        }
+
+        .contact-icon svg {
+            width: 28px;
+            height: 28px;
+            stroke-width: 1.5;
         }
 
         .contact-card:hover .contact-icon {
@@ -906,11 +1044,6 @@
             width: auto;
         }
 
-        .footer-logo img {
-            height: 32px;
-            width: auto;
-        }
-
         .footer-logo span {
             font-size: 15px;
             font-weight: 700;
@@ -941,11 +1074,11 @@
                 display: none;
             }
 
-            .benefits-grid {
+            .automation-grid {
                 grid-template-columns: 1fr;
             }
 
-            .benefit-card.large {
+            .automation-card.large {
                 grid-column: span 1;
                 grid-template-columns: 1fr;
             }
@@ -961,13 +1094,14 @@
         }
 
         @media (max-width: 900px) {
-            .features-grid,
+            .capabilities-grid,
+            .benefits-grid,
             .how-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
 
-            .audience-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .industries-grid {
+                grid-template-columns: 1fr;
             }
 
             .nav {
@@ -992,11 +1126,12 @@
                 grid-template-columns: 1fr;
             }
 
-            .features,
+            .capabilities,
+            .automation,
             .how-it-works,
             .benefits,
             .manager,
-            .audience,
+            .industries,
             .pricing,
             .contact {
                 padding: 80px 20px;
@@ -1006,9 +1141,10 @@
                 font-size: 32px;
             }
 
-            .features-grid,
+            .capabilities-grid,
+            .benefits-grid,
             .how-grid,
-            .audience-grid,
+            .industries-grid,
             .contact-grid {
                 grid-template-columns: 1fr;
             }
@@ -1045,7 +1181,8 @@
             <span class="logo-text">BRIDGENT</span>
         </a>
         <nav class="nav">
-            <a href="#features">Funkcje</a>
+            <a href="#capabilities">Możliwości</a>
+            <a href="#industries">Branże</a>
             <a href="#benefits">Korzyści</a>
             <a href="#manager">Panel</a>
             <a href="#pricing">Cennik</a>
@@ -1061,15 +1198,15 @@
                     <span class="dot"></span>
                     Echo Voice AI
                 </div>
-                <h1 class="hero-title">Inteligentny bot głosowy dla Twojego biznesu</h1>
-                <p class="hero-desc">Automatyczna obsługa połączeń telefonicznych 24/7. Bot odbiera, rezerwuje stoliki, odpowiada na pytania i wysyła SMS z potwierdzeniem. Bez przerw, bez błędów, bez stresu.</p>
+                <h1 class="hero-title">Inteligentny <span class="highlight">bot głosowy</span> dla Twojego biznesu</h1>
+                <p class="hero-desc">Automatyczna obsługa połączeń telefonicznych 24/7 dla restauracji, klubów nocnych i hoteli. Bot odbiera połączenia, przyjmuje rezerwacje, odpowiada na pytania i wysyła SMS z potwierdzeniem.</p>
                 <a href="https://t.me/tommygg22" class="hero-cta">
-                    Umów się na rozmowę →
+                    Zamów demo →
                 </a>
                 <div class="hero-stats">
                     <div class="stat">
-                        <div class="stat-value">2s</div>
-                        <div class="stat-label">Odpowiedź</div>
+                        <div class="stat-value">&lt;2s</div>
+                        <div class="stat-label">Czas odpowiedzi</div>
                     </div>
                     <div class="stat">
                         <div class="stat-value">24/7</div>
@@ -1077,65 +1214,154 @@
                     </div>
                     <div class="stat">
                         <div class="stat-value">100%</div>
-                        <div class="stat-label">Odebranych</div>
+                        <div class="stat-label">Odebranych połączeń</div>
                     </div>
                 </div>
             </div>
             <div class="hero-right">
                 <div class="hero-card">
-                    <h3><span>🎯</span> Automatyczna integracja</h3>
+                    <h3><i data-lucide="target"></i> Automatyczna integracja</h3>
                     <p>Bot automatycznie parsuje Twoją stronę internetową i zna wszystkie informacje o lokalu — menu, godziny otwarcia, cennik, wydarzenia. Zawsze aktualne dane bez Twojego udziału.</p>
                 </div>
                 <div class="hero-card">
-                    <h3><span>🧠</span> Naturalne dialogi</h3>
+                    <h3><i data-lucide="brain-circuit"></i> Naturalne dialogi AI</h3>
                     <p>Zaawansowane AI rozumie naturalną mowę. Klient mówi "będziemy we czwórkę na ósmą" — bot rozumie wszystko i nie pyta dwa razy o to samo.</p>
                 </div>
                 <div class="hero-card">
-                    <h3><span>💼</span> Panel dla managera</h3>
+                    <h3><i data-lucide="briefcase"></i> Panel dla managera</h3>
                     <p>Wszystkie rezerwacje w jednym miejscu. Wygodny interfejs, powiadomienia, eksport danych, statystyki połączeń. Pełna kontrola bez chaosu.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features" id="features">
-        <div class="features-container">
+    <!-- Capabilities Section -->
+    <section class="capabilities" id="capabilities">
+        <div class="capabilities-container">
             <div class="section-header">
-                <span class="section-label">Możliwości</span>
-                <h2 class="section-title">Co potrafi Echo Voice</h2>
-                <p class="section-desc">Kompleksowe rozwiązanie do obsługi połączeń telefonicznych. Wszystko czego potrzebujesz w jednym pakiecie.</p>
+                <span class="section-label">Co potrafi Echo Voice</span>
+                <h2 class="section-title">Pełna automatyzacja obsługi telefonicznej</h2>
+                <p class="section-desc">Kompleksowe rozwiązanie AI do obsługi połączeń. Wszystko czego potrzebujesz w jednym pakiecie.</p>
             </div>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">📞</div>
+            <div class="capabilities-grid">
+                <div class="capability-card">
+                    <div class="capability-icon"><i data-lucide="phone"></i></div>
                     <h3>Odbieranie połączeń 24/7</h3>
-                    <p>Bot odbiera każde połączenie w 2 sekundy. W dzień, w nocy, w święta. Zero nieodebranych, zero straconych klientów.</p>
+                    <p>Bot odbiera każde połączenie w mniej niż 2 sekundy. W dzień, w nocy, w święta. Zero nieodebranych, zero straconych klientów.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📅</div>
+                <div class="capability-card">
+                    <div class="capability-icon"><i data-lucide="calendar"></i></div>
                     <h3>Automatyczne rezerwacje</h3>
-                    <p>Pełna obsługa rezerwacji: zbieranie danych, walidacja, potwierdzenie SMS. Wszystko bez udziału personelu.</p>
+                    <p>Pełna obsługa rezerwacji: zbieranie danych klienta, walidacja dat i godzin, automatyczne potwierdzenie SMS. Bez udziału personelu.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🌐</div>
-                    <h3>Parsowanie strony</h3>
-                    <p>Bot automatycznie pobiera dane z Twojej strony — menu, ceny, godziny, wydarzenia. Aktualizujesz stronę — bot już wie.</p>
+                <div class="capability-card">
+                    <div class="capability-icon"><i data-lucide="globe"></i></div>
+                    <h3>Parsowanie strony WWW</h3>
+                    <p>Bot automatycznie pobiera dane z Twojej strony — menu, ceny, godziny pracy, wydarzenia. Aktualizujesz stronę — bot już wie.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">💬</div>
-                    <h3>Naturalne rozmowy</h3>
-                    <p>Zaawansowane AI rozumie kontekst i naturalną mowę. Klienci często nie wiedzą, że rozmawiają z botem.</p>
+                <div class="capability-card">
+                    <div class="capability-icon"><i data-lucide="message-circle"></i></div>
+                    <h3>Naturalne rozmowy AI</h3>
+                    <p>Groq AI rozumie kontekst i naturalną mowę. Bot rozpoznaje daty, godziny, liczby gości. Klienci często nie wiedzą, że rozmawiają z AI.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📊</div>
-                    <h3>Panel managera</h3>
-                    <p>Wygodny interfejs do zarządzania rezerwacjami. Lista, kalendarz, statystyki, eksport. Wszystko pod ręką.</p>
+                <div class="capability-card">
+                    <div class="capability-icon"><i data-lucide="check-circle-2"></i></div>
+                    <h3>Walidacja danych</h3>
+                    <p>Automatyczna weryfikacja numeru telefonu, sprawdzanie godzin pracy lokalu, kontrola maksymalnej liczby gości. Zero błędnych rezerwacji.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📱</div>
+                <div class="capability-card">
+                    <div class="capability-icon"><i data-lucide="smartphone"></i></div>
                     <h3>SMS i powiadomienia</h3>
-                    <p>Automatyczne SMS z potwierdzeniem rezerwacji dla klientów. Powiadomienia dla managera o nowych rezerwacjach.</p>
+                    <p>Automatyczne SMS z potwierdzeniem rezerwacji dla klientów. Natychmiastowe powiadomienia dla managera o nowych rezerwacjach.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Automation Section -->
+    <section class="automation" id="automation">
+        <div class="automation-container">
+            <div class="section-header">
+                <span class="section-label">Automatyzacja</span>
+                <h2 class="section-title">Jakie zadania automatyzuje</h2>
+                <p class="section-desc">Echo Voice przejmuje wszystkie rutynowe zadania obsługi telefonicznej.</p>
+            </div>
+            <div class="automation-grid">
+                <div class="automation-card">
+                    <div class="automation-icon"><i data-lucide="clipboard-list"></i></div>
+                    <h3>Zbieranie danych rezerwacji</h3>
+                    <p>Automatyczne zbieranie imienia, daty, godziny, liczby gości i numeru telefonu. Inteligentne rozpoznawanie kontekstu rozmowy.</p>
+                </div>
+                <div class="automation-card">
+                    <div class="automation-icon"><i data-lucide="help-circle"></i></div>
+                    <h3>Odpowiedzi na pytania</h3>
+                    <p>Bot odpowiada na pytania o adres, godziny otwarcia, cennik, dress code, wydarzenia, DJ-ów, menu i wszystko co znajduje się na stronie.</p>
+                </div>
+                <div class="automation-card large">
+                    <div>
+                        <div class="automation-icon"><i data-lucide="refresh-cw"></i></div>
+                        <h3>Pełny cykl rezerwacji</h3>
+                        <p>Od pierwszego połączenia do potwierdzenia SMS — całkowicie automatycznie. Bot prowadzi rozmowę, zbiera dane, waliduje informacje i zapisuje rezerwację w systemie.</p>
+                    </div>
+                    <div>
+                        <ul class="automation-list">
+                            <li>Rozpoznawanie dat: "w piątek", "na 20-ego", "za tydzień"</li>
+                            <li>Rozpoznawanie czasu: "na ósmą", "o 22", "wieczorem"</li>
+                            <li>Rozpoznawanie liczby gości: "we dwóch", "5 osób"</li>
+                            <li>Weryfikacja i formatowanie numeru telefonu</li>
+                            <li>Automatyczne SMS z potwierdzeniem</li>
+                            <li>Zapis do bazy danych i panelu managera</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Industries Section -->
+    <section class="industries" id="industries">
+        <div class="industries-container">
+            <div class="industries-header">
+                <span class="section-label">Branże</span>
+                <h2 class="section-title">Dla jakich biznesów</h2>
+                <p class="section-desc">Echo Voice dostosowuje się do specyfiki Twojej branży</p>
+            </div>
+            <div class="industries-grid">
+                <div class="industry-card">
+                    <div class="industry-icon"><i data-lucide="utensils"></i></div>
+                    <h3>Restauracje</h3>
+                    <p>Automatyczne rezerwacje stolików, informacje o menu, godzinach otwarcia, promocjach i wydarzeniach specjalnych.</p>
+                    <ul class="industry-features">
+                        <li>Rezerwacja stolików na konkretną datę i godzinę</li>
+                        <li>Informacje o menu i cenach</li>
+                        <li>Pytania o alergeny i diety specjalne</li>
+                        <li>Godziny otwarcia i lokalizacja</li>
+                        <li>Promocje dnia i wydarzenia</li>
+                    </ul>
+                </div>
+                <div class="industry-card">
+                    <div class="industry-icon"><i data-lucide="music"></i></div>
+                    <h3>Kluby nocne</h3>
+                    <p>Rezerwacje loży VIP, informacje o imprezach, DJ-ach, dress code, cenach wejścia i cenach alkoholi.</p>
+                    <ul class="industry-features">
+                        <li>Rezerwacja loży i stolików VIP</li>
+                        <li>Informacje o nadchodzących imprezach</li>
+                        <li>Lista DJ-ów i styl muzyczny</li>
+                        <li>Dress code i limit wieku</li>
+                        <li>Ceny wejścia i cennik butelek</li>
+                    </ul>
+                </div>
+                <div class="industry-card">
+                    <div class="industry-icon"><i data-lucide="hotel"></i></div>
+                    <h3>Hotele</h3>
+                    <p>Rezerwacje pokoi, informacje o udogodnieniach, check-in/check-out, parking, restauracja hotelowa.</p>
+                    <ul class="industry-features">
+                        <li>Rezerwacja pokoi i apartamentów</li>
+                        <li>Informacje o udogodnieniach</li>
+                        <li>Godziny check-in i check-out</li>
+                        <li>Parking i dodatkowe usługi</li>
+                        <li>Restauracja i room service</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -1146,14 +1372,14 @@
         <div class="how-container">
             <div class="section-header">
                 <span class="section-label">Proces</span>
-                <h2 class="section-title">Jak to działa</h2>
-                <p class="section-desc">Od podpisania umowy do pełnej automatyzacji w 48 godzin.</p>
+                <h2 class="section-title">Jak wdrożyć Echo Voice</h2>
+                <p class="section-desc">Od rozmowy do pełnej automatyzacji w 48 godzin.</p>
             </div>
             <div class="how-grid">
                 <div class="how-step">
                     <div class="how-number">1</div>
-                    <h3>Rozmowa</h3>
-                    <p>Omawiamy potrzeby Twojego lokalu i specyfikę działania</p>
+                    <h3>Konsultacja</h3>
+                    <p>Omawiamy potrzeby Twojego biznesu i specyfikę działania lokalu</p>
                 </div>
                 <div class="how-step">
                     <div class="how-number">2</div>
@@ -1163,12 +1389,12 @@
                 <div class="how-step">
                     <div class="how-number">3</div>
                     <h3>Integracja</h3>
-                    <p>Podłączamy bota do Twojego numeru telefonu i testujemy</p>
+                    <p>Podłączamy bota do Twojego numeru telefonu i testujemy wszystkie scenariusze</p>
                 </div>
                 <div class="how-step">
                     <div class="how-number">4</div>
                     <h3>Start</h3>
-                    <p>Bot zaczyna odbierać połączenia. Ty dostajesz panel managera</p>
+                    <p>Bot zaczyna odbierać połączenia 24/7. Dostajesz panel managera</p>
                 </div>
             </div>
         </div>
@@ -1179,35 +1405,38 @@
         <div class="benefits-container">
             <div class="section-header">
                 <span class="section-label">Korzyści</span>
-                <h2 class="section-title">Dlaczego warto</h2>
+                <h2 class="section-title">Dlaczego warto wybrać Echo Voice</h2>
             </div>
             <div class="benefits-grid">
                 <div class="benefit-card">
-                    <div class="benefit-icon">💰</div>
-                    <h3>Oszczędność 4000+ PLN miesięcznie</h3>
-                    <p>Nie potrzebujesz osoby do odbierania telefonów. Bot kosztuje ułamek tego, co pracownik, a pracuje 3x dłużej.</p>
+                    <div class="benefit-icon"><i data-lucide="trending-up"></i></div>
+                    <h3>Więcej rezerwacji</h3>
+                    <p>Zero nieodebranych połączeń = zero straconych klientów. Nawet o 3 w nocy bot przyjmie rezerwację bez problemu.</p>
                 </div>
                 <div class="benefit-card">
-                    <div class="benefit-icon">📈</div>
-                    <h3>Więcej rezerwacji</h3>
-                    <p>Zero nieodebranych połączeń = zero straconych klientów. Nawet o 3 w nocy bot przyjmie rezerwację.</p>
+                    <div class="benefit-icon"><i data-lucide="zap"></i></div>
+                    <h3>Błyskawiczne odpowiedzi</h3>
+                    <p>Odpowiedź w mniej niż 2 sekundy dzięki Groq AI. Klienci nie czekają, nie irytują się, nie rozłączają.</p>
                 </div>
-                <div class="benefit-card large">
-                    <div>
-                        <div class="benefit-icon">🔄</div>
-                        <h3>Wszystko zautomatyzowane</h3>
-                        <p>Bot wie wszystko o Twoim lokalu, bo automatycznie parsuje stronę. Menu, ceny, wydarzenia, godziny — zawsze aktualne informacje bez Twojego udziału.</p>
-                    </div>
-                    <div>
-                        <ul class="benefit-list">
-                            <li>Automatyczne pobieranie danych ze strony</li>
-                            <li>Aktualizacja w czasie rzeczywistym</li>
-                            <li>Odpowiedzi na wszystkie pytania o lokal</li>
-                            <li>Integracja z kalendarzem rezerwacji</li>
-                            <li>Automatyczne SMS z potwierdzeniem</li>
-                            <li>Powiadomienia dla managera</li>
-                        </ul>
-                    </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i data-lucide="refresh-cw"></i></div>
+                    <h3>Automatyczna aktualizacja</h3>
+                    <p>Bot automatycznie parsuje Twoją stronę. Menu, ceny, wydarzenia — zawsze aktualne informacje bez Twojego udziału.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i data-lucide="target"></i></div>
+                    <h3>Dokładność 100%</h3>
+                    <p>Walidacja wszystkich danych: dat, godzin, liczby gości, numerów telefonu. Zero błędnych rezerwacji w systemie.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i data-lucide="globe-2"></i></div>
+                    <h3>Wielojęzyczność</h3>
+                    <p>Bot obsługuje wiele języków i dostosowuje się do języka klienta. Idealne dla lokali z międzynarodową klientelą.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i data-lucide="bar-chart-3"></i></div>
+                    <h3>Pełna analityka</h3>
+                    <p>Statystyki połączeń, rezerwacji, najczęstszych pytań. Wszystkie dane w przejrzystym panelu managera.</p>
                 </div>
             </div>
         </div>
@@ -1223,28 +1452,28 @@
                     <p>Wygodna aplikacja do zarządzania wszystkimi rezerwacjami. Widok listy lub kalendarza, szybkie wyszukiwanie, eksport do Excel. Wszystko czego potrzebujesz.</p>
                     <div class="manager-features">
                         <div class="manager-feature">
-                            <div class="manager-feature-icon">📋</div>
+                            <div class="manager-feature-icon"><i data-lucide="list"></i></div>
                             <div>
                                 <h4>Lista rezerwacji</h4>
                                 <p>Wszystkie rezerwacje w jednym miejscu z filtrami i sortowaniem</p>
                             </div>
                         </div>
                         <div class="manager-feature">
-                            <div class="manager-feature-icon">📆</div>
+                            <div class="manager-feature-icon"><i data-lucide="calendar-days"></i></div>
                             <div>
                                 <h4>Widok kalendarza</h4>
                                 <p>Przejrzysty kalendarz z rezerwacjami na dany dzień i tydzień</p>
                             </div>
                         </div>
                         <div class="manager-feature">
-                            <div class="manager-feature-icon">🔔</div>
+                            <div class="manager-feature-icon"><i data-lucide="bell"></i></div>
                             <div>
                                 <h4>Powiadomienia</h4>
                                 <p>Natychmiastowe powiadomienia o nowych rezerwacjach</p>
                             </div>
                         </div>
                         <div class="manager-feature">
-                            <div class="manager-feature-icon">📊</div>
+                            <div class="manager-feature-icon"><i data-lucide="pie-chart"></i></div>
                             <div>
                                 <h4>Statystyki</h4>
                                 <p>Raporty połączeń, rezerwacji i skuteczności bota</p>
@@ -1260,7 +1489,7 @@
                         </div>
                         <div class="reservation-item">
                             <div class="reservation-info">
-                                <div class="reservation-avatar">👤</div>
+                                <div class="reservation-avatar"><i data-lucide="user"></i></div>
                                 <div class="reservation-details">
                                     <h5>Marek Kowalski</h5>
                                     <span>20:00 • 4 osoby</span>
@@ -1270,7 +1499,7 @@
                         </div>
                         <div class="reservation-item">
                             <div class="reservation-info">
-                                <div class="reservation-avatar">👤</div>
+                                <div class="reservation-avatar"><i data-lucide="user"></i></div>
                                 <div class="reservation-details">
                                     <h5>Anna Nowak</h5>
                                     <span>21:00 • 2 osoby</span>
@@ -1280,7 +1509,7 @@
                         </div>
                         <div class="reservation-item">
                             <div class="reservation-info">
-                                <div class="reservation-avatar">👤</div>
+                                <div class="reservation-avatar"><i data-lucide="user"></i></div>
                                 <div class="reservation-details">
                                     <h5>Piotr Wiśniewski</h5>
                                     <span>22:00 • 6 osób</span>
@@ -1289,38 +1518,6 @@
                             <span class="reservation-status pending">Oczekuje</span>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Audience Section -->
-    <section class="audience">
-        <div class="audience-container">
-            <div class="audience-header">
-                <span class="section-label">Dla kogo</span>
-                <h2 class="section-title">Idealne rozwiązanie dla</h2>
-            </div>
-            <div class="audience-grid">
-                <div class="audience-card">
-                    <div class="audience-icon">🍽️</div>
-                    <h3>Restauracje</h3>
-                    <p>Rezerwacje stolików, pytania o menu, godziny otwarcia, promocje specjalne</p>
-                </div>
-                <div class="audience-card">
-                    <div class="audience-icon">🎉</div>
-                    <h3>Kluby i bary</h3>
-                    <p>Rezerwacje loży, info o imprezach, DJ-ach, dress code, ceny wejścia</p>
-                </div>
-                <div class="audience-card">
-                    <div class="audience-icon">🏨</div>
-                    <h3>Hotele</h3>
-                    <p>Rezerwacje pokoi, pytania o udogodnienia, check-in, parking</p>
-                </div>
-                <div class="audience-card">
-                    <div class="audience-icon">💈</div>
-                    <h3>Salony</h3>
-                    <p>Zapisy do specjalistów, przypomnienia o wizytach, cennik usług</p>
                 </div>
             </div>
         </div>
@@ -1349,7 +1546,7 @@
                 </div>
                 <div class="pricing-cta">
                     <h4>Zainteresowany?</h4>
-                    <p>Porozmawiajmy o potrzebach Twojego lokalu i przygotujemy spersonalizowaną ofertę</p>
+                    <p>Porozmawiajmy o potrzebach Twojego biznesu i przygotujemy spersonalizowaną ofertę</p>
                     <a href="https://t.me/tommygg22" class="btn-primary">
                         Napisz do nas →
                     </a>
@@ -1367,17 +1564,17 @@
             </div>
             <div class="contact-grid">
                 <a href="https://t.me/tommygg22" class="contact-card">
-                    <div class="contact-icon">✈️</div>
+                    <div class="contact-icon"><i data-lucide="send"></i></div>
                     <span>Telegram</span>
                     <strong>@tommygg22</strong>
                 </a>
                 <a href="tel:+48532368023" class="contact-card">
-                    <div class="contact-icon">📞</div>
+                    <div class="contact-icon"><i data-lucide="phone"></i></div>
                     <span>Telefon</span>
                     <strong class="phone-number">+48 532 368 023</strong>
                 </a>
                 <a href="mailto:echovoiceeee@gmail.com" class="contact-card">
-                    <div class="contact-icon">✉️</div>
+                    <div class="contact-icon"><i data-lucide="mail"></i></div>
                     <span>Email</span>
                     <strong>echovoiceeee@gmail.com</strong>
                 </a>
@@ -1398,5 +1595,8 @@
         <div class="footer-copy">© 2025 Echo Voice by BRIDGENT. Wszelkie prawa zastrzeżone.</div>
     </footer>
 
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 </html>
