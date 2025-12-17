@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Echo Voice by BRIDGENT — Bot głosowy AI dla restauracji i klubów</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --white: #ffffff;
+            --gray-50: #fafafa;
+            --gray-100: #f5f5f5;
+            --gray-200: #e5e5e5;
+            --gray-300: #d4d4d4;
+            --gray-400: #a3a3a3;
+            --gray-500: #737373;
+            --gray-600: #525252;
+            --gray-700: #404040;
+            --gray-800: #262626;
+            --gray-850: #1c1c1c;
+            --gray-900: #171717;
+            --gray-950: #0d0d0d;
+            --black: #000000;
+            --green: #22c55e;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--gray-950);
+            color: var(--gray-400);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(13, 13, 13, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--gray-900);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .logo-svg {
+            height: 40px;
+            width: auto;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .logo-text {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: 2px;
+        }
+
+        .nav {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav a {
+            font-size: 14px;
+            color: var(--gray-500);
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: var(--white);
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            padding: 160px 48px 100px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .hero-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: var(--gray-400);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            background: var(--gray-900);
+            padding: 10px 20px;
+            border-radius: 100px;
+            width: fit-content;
+        }
+
+        .hero-label .dot {
+            width: 8px;
+            height: 8px;
+            background: var(--green);
+            border-radius: 50%;
+        }
+
+        .hero-title {
+            font-size: 54px;
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1.15;
+            margin-bottom: 28px;
+        }
+
+        .hero-desc {
+            font-size: 18px;
+            color: var(--gray-400);
+            line-height: 1.8;
+            margin-bottom: 40px;
+            max-width: 520px;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--white);
+            color: var(--black);
+            padding: 18px 36px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .hero-cta:hover {
+            background: var(--gray-200);
+            transform: translateY(-2px);
+        }
+
+        .hero-right {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .hero-card {
+            background: var(--gray-900);
+            border-radius: 20px;
+            padding: 32px;
+            border: 1px solid var(--gray-850);
+        }
+
+        .hero-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .hero-card h3 span {
+            font-size: 24px;
+        }
+
+        .hero-card p {
+            font-size: 15px;
+            color: var(--gray-500);
+            line-height: 1.7;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 60px;
+        }
+
+        .stat {
+            background: var(--gray-900);
+            border-radius: 16px;
+            padding: 28px;
+            text-align: center;
+            border: 1px solid var(--gray-850);
+        }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 120px 48px;
+            background: var(--gray-900);
+        }
+
+        .features-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            margin-bottom: 64px;
+        }
+
+        .section-label {
+            font-size: 12px;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .section-title {
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 16px;
+        }
+
+        .section-desc {
+            font-size: 18px;
+            color: var(--gray-500);
+            max-width: 600px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: var(--gray-850);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid var(--gray-800);
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            border-color: var(--gray-700);
+            transform: translateY(-6px);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gray-800);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 24px;
+        }
+
+        .feature-card:hover .feature-icon {
+            background: var(--white);
+        }
+
+        .feature-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            font-size: 15px;
+            color: var(--gray-500);
+            line-height: 1.7;
+        }
+
+        /* How it works */
+        .how-it-works {
+            padding: 120px 48px;
+        }
+
+        .how-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .how-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-top: 64px;
+        }
+
+        .how-step {
+            background: var(--gray-900);
+            border-radius: 20px;
+            padding: 40px 32px;
+            text-align: center;
+            border: 1px solid var(--gray-850);
+            position: relative;
+        }
+
+        .how-number {
+            width: 48px;
+            height: 48px;
+            background: var(--white);
+            color: var(--black);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+            margin: 0 auto 24px;
+        }
+
+        .how-step h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 12px;
+        }
+
+        .how-step p {
+            font-size: 14px;
+            color: var(--gray-500);
+            line-height: 1.6;
+        }
+
+        /* Benefits Section */
+        .benefits {
+            padding: 120px 48px;
+            background: var(--gray-900);
+        }
+
+        .benefits-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .benefit-card {
+            background: var(--gray-850);
+            border-radius: 24px;
+            padding: 48px;
+            border: 1px solid var(--gray-800);
+            transition: all 0.3s;
+        }
+
+        .benefit-card:hover {
+            border-color: var(--gray-700);
+        }
+
+        .benefit-card.large {
+            grid-column: span 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .benefit-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--gray-800);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 24px;
+        }
+
+        .benefit-card:hover .benefit-icon {
+            background: var(--white);
+        }
+
+        .benefit-card h3 {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 16px;
+        }
+
+        .benefit-card p {
+            font-size: 16px;
+            color: var(--gray-500);
+            line-height: 1.8;
+        }
+
+        .benefit-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .benefit-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            font-size: 15px;
+            color: var(--gray-400);
+            border-bottom: 1px solid var(--gray-800);
+        }
+
+        .benefit-list li:last-child {
+            border-bottom: none;
+        }
+
+        .benefit-list li::before {
+            content: '✓';
+            color: var(--green);
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        /* Manager Panel Section */
+        .manager {
+            padding: 120px 48px;
+        }
+
+        .manager-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .manager-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+        }
+
+        .manager-info h2 {
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 24px;
+        }
+
+        .manager-info p {
+            font-size: 17px;
+            color: var(--gray-500);
+            line-height: 1.8;
+            margin-bottom: 32px;
+        }
+
+        .manager-features {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .manager-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 20px;
+            background: var(--gray-900);
+            border-radius: 16px;
+            border: 1px solid var(--gray-850);
+        }
+
+        .manager-feature-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gray-850);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .manager-feature h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 4px;
+        }
+
+        .manager-feature p {
+            font-size: 14px;
+            color: var(--gray-500);
+            margin: 0;
+        }
+
+        .manager-visual {
+            background: var(--gray-900);
+            border-radius: 24px;
+            padding: 40px;
+            border: 1px solid var(--gray-850);
+        }
+
+        .manager-preview {
+            background: var(--gray-850);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .manager-preview-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--gray-800);
+        }
+
+        .manager-preview-header h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .manager-preview-header span {
+            font-size: 13px;
+            color: var(--green);
+        }
+
+        .reservation-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px;
+            background: var(--gray-900);
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+
+        .reservation-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .reservation-info {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .reservation-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--gray-800);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .reservation-details h5 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .reservation-details span {
+            font-size: 12px;
+            color: var(--gray-500);
+        }
+
+        .reservation-status {
+            padding: 6px 12px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .reservation-status.confirmed {
+            background: rgba(34, 197, 94, 0.15);
+            color: var(--green);
+        }
+
+        .reservation-status.pending {
+            background: rgba(234, 179, 8, 0.15);
+            color: #eab308;
+        }
+
+        /* Audience Section */
+        .audience {
+            padding: 120px 48px;
+            background: var(--gray-900);
+        }
+
+        .audience-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .audience-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .audience-card {
+            background: var(--gray-850);
+            border-radius: 20px;
+            padding: 48px 32px;
+            text-align: center;
+            border: 1px solid var(--gray-800);
+            transition: all 0.3s;
+        }
+
+        .audience-card:hover {
+            border-color: var(--gray-600);
+            transform: translateY(-8px);
+        }
+
+        .audience-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gray-800);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            margin: 0 auto 28px;
+        }
+
+        .audience-card:hover .audience-icon {
+            background: var(--white);
+        }
+
+        .audience-card h3 {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 12px;
+        }
+
+        .audience-card p {
+            font-size: 14px;
+            color: var(--gray-500);
+            line-height: 1.6;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 120px 48px;
+        }
+
+        .pricing-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .pricing-card {
+            background: var(--gray-900);
+            border-radius: 32px;
+            padding: 64px;
+            border: 1px solid var(--gray-800);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+        }
+
+        .pricing-main h3 {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--gray-400);
+            margin-bottom: 16px;
+        }
+
+        .pricing-amount {
+            font-size: 64px;
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 8px;
+        }
+
+        .pricing-amount span {
+            font-size: 24px;
+            font-weight: 500;
+            color: var(--gray-500);
+        }
+
+        .pricing-note {
+            font-size: 15px;
+            color: var(--gray-500);
+            margin-bottom: 32px;
+        }
+
+        .pricing-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .pricing-item {
+            background: var(--gray-850);
+            padding: 12px 18px;
+            border-radius: 100px;
+            font-size: 14px;
+            color: var(--gray-300);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pricing-item::before {
+            content: '✓';
+            color: var(--green);
+            font-weight: 700;
+        }
+
+        .pricing-cta {
+            text-align: center;
+        }
+
+        .pricing-cta h4 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 16px;
+        }
+
+        .pricing-cta p {
+            font-size: 16px;
+            color: var(--gray-500);
+            margin-bottom: 32px;
+        }
+
+        .btn-primary {
+            background: var(--white);
+            color: var(--black);
+            padding: 20px 48px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: var(--gray-200);
+            transform: translateY(-2px);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 120px 48px;
+            background: var(--gray-900);
+        }
+
+        .contact-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .contact-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .contact-header h2 {
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 16px;
+        }
+
+        .contact-header p {
+            font-size: 18px;
+            color: var(--gray-500);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .contact-card {
+            background: var(--gray-850);
+            border-radius: 20px;
+            padding: 40px 32px;
+            text-align: center;
+            border: 1px solid var(--gray-800);
+            transition: all 0.3s;
+        }
+
+        .contact-card:hover {
+            border-color: var(--gray-700);
+            transform: translateY(-6px);
+        }
+
+        .contact-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--gray-800);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin: 0 auto 20px;
+        }
+
+        .contact-card:hover .contact-icon {
+            background: var(--white);
+        }
+
+        .contact-card span {
+            display: block;
+            font-size: 12px;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .contact-card strong {
+            font-size: 17px;
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .contact-card .phone-number {
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 32px 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--gray-900);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .footer-logo .logo-svg {
+            height: 32px;
+            width: auto;
+        }
+
+        .footer-logo img {
+            height: 32px;
+            width: auto;
+        }
+
+        .footer-logo span {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: 2px;
+        }
+
+        .footer-copy {
+            font-size: 14px;
+            color: var(--gray-600);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-right {
+                display: none;
+            }
+
+            .manager-content {
+                grid-template-columns: 1fr;
+            }
+
+            .manager-visual {
+                display: none;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .benefit-card.large {
+                grid-column: span 1;
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .pricing-list {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .features-grid,
+            .how-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .audience-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .nav {
+                display: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .header {
+                padding: 16px 20px;
+            }
+
+            .hero {
+                padding: 120px 20px 60px;
+            }
+
+            .hero-title {
+                font-size: 36px;
+            }
+
+            .hero-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .features,
+            .how-it-works,
+            .benefits,
+            .manager,
+            .audience,
+            .pricing,
+            .contact {
+                padding: 80px 20px;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .features-grid,
+            .how-grid,
+            .audience-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer {
+                flex-direction: column;
+                gap: 16px;
+                padding: 24px 20px;
+            }
+
+            .pricing-card {
+                padding: 40px 24px;
+            }
+
+            .pricing-amount {
+                font-size: 48px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <a href="#" class="logo">
+            <svg class="logo-svg" viewBox="0 0 40 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Letter B -->
+                <path d="M6 2 L6 26 L22 26 C28 26 32 22 32 18 L32 18 C32 14 28 12 24 12 L24 12 C28 12 30 9 30 6 C30 3 27 2 22 2 L6 2 Z M12 7 L20 7 C23 7 24 8 24 9.5 C24 11 23 12 20 12 L12 12 L12 7 Z M12 16 L21 16 C25 16 26 17.5 26 19 C26 20.5 25 22 21 22 L12 22 L12 16 Z" fill="white"/>
+                <!-- Outer circle with gaps -->
+                <circle cx="20" cy="44" r="13" stroke="white" stroke-width="4" fill="none" stroke-dasharray="18 5"/>
+                <!-- Inner circle -->
+                <circle cx="20" cy="44" r="5" stroke="white" stroke-width="2.5" fill="none"/>
+            </svg>
+            <span class="logo-text">BRIDGENT</span>
+        </a>
+        <nav class="nav">
+            <a href="#features">Funkcje</a>
+            <a href="#benefits">Korzyści</a>
+            <a href="#manager">Panel</a>
+            <a href="#pricing">Cennik</a>
+            <a href="#contact">Kontakt</a>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-left">
+                <div class="hero-label">
+                    <span class="dot"></span>
+                    Echo Voice AI
+                </div>
+                <h1 class="hero-title">Inteligentny bot głosowy dla Twojego biznesu</h1>
+                <p class="hero-desc">Automatyczna obsługa połączeń telefonicznych 24/7. Bot odbiera, rezerwuje stoliki, odpowiada na pytania i wysyła SMS z potwierdzeniem. Bez przerw, bez błędów, bez stresu.</p>
+                <a href="https://t.me/tommygg22" class="hero-cta">
+                    Umów się na rozmowę →
+                </a>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-value">2s</div>
+                        <div class="stat-label">Odpowiedź</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">24/7</div>
+                        <div class="stat-label">Dostępność</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">100%</div>
+                        <div class="stat-label">Odebranych</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-right">
+                <div class="hero-card">
+                    <h3><span>🎯</span> Automatyczna integracja</h3>
+                    <p>Bot automatycznie parsuje Twoją stronę internetową i zna wszystkie informacje o lokalu — menu, godziny otwarcia, cennik, wydarzenia. Zawsze aktualne dane bez Twojego udziału.</p>
+                </div>
+                <div class="hero-card">
+                    <h3><span>🧠</span> Naturalne dialogi</h3>
+                    <p>Zaawansowane AI rozumie naturalną mowę. Klient mówi "będziemy we czwórkę na ósmą" — bot rozumie wszystko i nie pyta dwa razy o to samo.</p>
+                </div>
+                <div class="hero-card">
+                    <h3><span>💼</span> Panel dla managera</h3>
+                    <p>Wszystkie rezerwacje w jednym miejscu. Wygodny interfejs, powiadomienia, eksport danych, statystyki połączeń. Pełna kontrola bez chaosu.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="features-container">
+            <div class="section-header">
+                <span class="section-label">Możliwości</span>
+                <h2 class="section-title">Co potrafi Echo Voice</h2>
+                <p class="section-desc">Kompleksowe rozwiązanie do obsługi połączeń telefonicznych. Wszystko czego potrzebujesz w jednym pakiecie.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📞</div>
+                    <h3>Odbieranie połączeń 24/7</h3>
+                    <p>Bot odbiera każde połączenie w 2 sekundy. W dzień, w nocy, w święta. Zero nieodebranych, zero straconych klientów.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📅</div>
+                    <h3>Automatyczne rezerwacje</h3>
+                    <p>Pełna obsługa rezerwacji: zbieranie danych, walidacja, potwierdzenie SMS. Wszystko bez udziału personelu.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3>Parsowanie strony</h3>
+                    <p>Bot automatycznie pobiera dane z Twojej strony — menu, ceny, godziny, wydarzenia. Aktualizujesz stronę — bot już wie.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3>Naturalne rozmowy</h3>
+                    <p>Zaawansowane AI rozumie kontekst i naturalną mowę. Klienci często nie wiedzą, że rozmawiają z botem.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Panel managera</h3>
+                    <p>Wygodny interfejs do zarządzania rezerwacjami. Lista, kalendarz, statystyki, eksport. Wszystko pod ręką.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>SMS i powiadomienia</h3>
+                    <p>Automatyczne SMS z potwierdzeniem rezerwacji dla klientów. Powiadomienia dla managera o nowych rezerwacjach.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="how-it-works">
+        <div class="how-container">
+            <div class="section-header">
+                <span class="section-label">Proces</span>
+                <h2 class="section-title">Jak to działa</h2>
+                <p class="section-desc">Od podpisania umowy do pełnej automatyzacji w 48 godzin.</p>
+            </div>
+            <div class="how-grid">
+                <div class="how-step">
+                    <div class="how-number">1</div>
+                    <h3>Rozmowa</h3>
+                    <p>Omawiamy potrzeby Twojego lokalu i specyfikę działania</p>
+                </div>
+                <div class="how-step">
+                    <div class="how-number">2</div>
+                    <h3>Konfiguracja</h3>
+                    <p>Parsujemy stronę, ustawiamy zasady rezerwacji i personalizujemy bota</p>
+                </div>
+                <div class="how-step">
+                    <div class="how-number">3</div>
+                    <h3>Integracja</h3>
+                    <p>Podłączamy bota do Twojego numeru telefonu i testujemy</p>
+                </div>
+                <div class="how-step">
+                    <div class="how-number">4</div>
+                    <h3>Start</h3>
+                    <p>Bot zaczyna odbierać połączenia. Ty dostajesz panel managera</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits" id="benefits">
+        <div class="benefits-container">
+            <div class="section-header">
+                <span class="section-label">Korzyści</span>
+                <h2 class="section-title">Dlaczego warto</h2>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">💰</div>
+                    <h3>Oszczędność 4000+ PLN miesięcznie</h3>
+                    <p>Nie potrzebujesz osoby do odbierania telefonów. Bot kosztuje ułamek tego, co pracownik, a pracuje 3x dłużej.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">📈</div>
+                    <h3>Więcej rezerwacji</h3>
+                    <p>Zero nieodebranych połączeń = zero straconych klientów. Nawet o 3 w nocy bot przyjmie rezerwację.</p>
+                </div>
+                <div class="benefit-card large">
+                    <div>
+                        <div class="benefit-icon">🔄</div>
+                        <h3>Wszystko zautomatyzowane</h3>
+                        <p>Bot wie wszystko o Twoim lokalu, bo automatycznie parsuje stronę. Menu, ceny, wydarzenia, godziny — zawsze aktualne informacje bez Twojego udziału.</p>
+                    </div>
+                    <div>
+                        <ul class="benefit-list">
+                            <li>Automatyczne pobieranie danych ze strony</li>
+                            <li>Aktualizacja w czasie rzeczywistym</li>
+                            <li>Odpowiedzi na wszystkie pytania o lokal</li>
+                            <li>Integracja z kalendarzem rezerwacji</li>
+                            <li>Automatyczne SMS z potwierdzeniem</li>
+                            <li>Powiadomienia dla managera</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Manager Panel Section -->
+    <section class="manager" id="manager">
+        <div class="manager-container">
+            <div class="manager-content">
+                <div class="manager-info">
+                    <span class="section-label">Panel managera</span>
+                    <h2>Pełna kontrola nad rezerwacjami</h2>
+                    <p>Wygodna aplikacja do zarządzania wszystkimi rezerwacjami. Widok listy lub kalendarza, szybkie wyszukiwanie, eksport do Excel. Wszystko czego potrzebujesz.</p>
+                    <div class="manager-features">
+                        <div class="manager-feature">
+                            <div class="manager-feature-icon">📋</div>
+                            <div>
+                                <h4>Lista rezerwacji</h4>
+                                <p>Wszystkie rezerwacje w jednym miejscu z filtrami i sortowaniem</p>
+                            </div>
+                        </div>
+                        <div class="manager-feature">
+                            <div class="manager-feature-icon">📆</div>
+                            <div>
+                                <h4>Widok kalendarza</h4>
+                                <p>Przejrzysty kalendarz z rezerwacjami na dany dzień i tydzień</p>
+                            </div>
+                        </div>
+                        <div class="manager-feature">
+                            <div class="manager-feature-icon">🔔</div>
+                            <div>
+                                <h4>Powiadomienia</h4>
+                                <p>Natychmiastowe powiadomienia o nowych rezerwacjach</p>
+                            </div>
+                        </div>
+                        <div class="manager-feature">
+                            <div class="manager-feature-icon">📊</div>
+                            <div>
+                                <h4>Statystyki</h4>
+                                <p>Raporty połączeń, rezerwacji i skuteczności bota</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="manager-visual">
+                    <div class="manager-preview">
+                        <div class="manager-preview-header">
+                            <h4>Rezerwacje na dziś</h4>
+                            <span>● 12 rezerwacji</span>
+                        </div>
+                        <div class="reservation-item">
+                            <div class="reservation-info">
+                                <div class="reservation-avatar">👤</div>
+                                <div class="reservation-details">
+                                    <h5>Marek Kowalski</h5>
+                                    <span>20:00 • 4 osoby</span>
+                                </div>
+                            </div>
+                            <span class="reservation-status confirmed">Potwierdzona</span>
+                        </div>
+                        <div class="reservation-item">
+                            <div class="reservation-info">
+                                <div class="reservation-avatar">👤</div>
+                                <div class="reservation-details">
+                                    <h5>Anna Nowak</h5>
+                                    <span>21:00 • 2 osoby</span>
+                                </div>
+                            </div>
+                            <span class="reservation-status confirmed">Potwierdzona</span>
+                        </div>
+                        <div class="reservation-item">
+                            <div class="reservation-info">
+                                <div class="reservation-avatar">👤</div>
+                                <div class="reservation-details">
+                                    <h5>Piotr Wiśniewski</h5>
+                                    <span>22:00 • 6 osób</span>
+                                </div>
+                            </div>
+                            <span class="reservation-status pending">Oczekuje</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Audience Section -->
+    <section class="audience">
+        <div class="audience-container">
+            <div class="audience-header">
+                <span class="section-label">Dla kogo</span>
+                <h2 class="section-title">Idealne rozwiązanie dla</h2>
+            </div>
+            <div class="audience-grid">
+                <div class="audience-card">
+                    <div class="audience-icon">🍽️</div>
+                    <h3>Restauracje</h3>
+                    <p>Rezerwacje stolików, pytania o menu, godziny otwarcia, promocje specjalne</p>
+                </div>
+                <div class="audience-card">
+                    <div class="audience-icon">🎉</div>
+                    <h3>Kluby i bary</h3>
+                    <p>Rezerwacje loży, info o imprezach, DJ-ach, dress code, ceny wejścia</p>
+                </div>
+                <div class="audience-card">
+                    <div class="audience-icon">🏨</div>
+                    <h3>Hotele</h3>
+                    <p>Rezerwacje pokoi, pytania o udogodnienia, check-in, parking</p>
+                </div>
+                <div class="audience-card">
+                    <div class="audience-icon">💈</div>
+                    <h3>Salony</h3>
+                    <p>Zapisy do specjalistów, przypomnienia o wizytach, cennik usług</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="pricing-container">
+            <div class="pricing-header">
+                <span class="section-label">Cennik</span>
+                <h2 class="section-title">Prosta i przejrzysta cena</h2>
+            </div>
+            <div class="pricing-card">
+                <div class="pricing-main">
+                    <h3>Miesięczna subskrypcja</h3>
+                    <div class="pricing-amount">od 800 <span>PLN</span></div>
+                    <p class="pricing-note">Końcowa cena zależy od ilości połączeń i specyficznych wymagań</p>
+                    <div class="pricing-list">
+                        <span class="pricing-item">Bot głosowy 24/7</span>
+                        <span class="pricing-item">Panel managera</span>
+                        <span class="pricing-item">SMS potwierdzenia</span>
+                        <span class="pricing-item">Parsowanie strony</span>
+                        <span class="pricing-item">Wsparcie techniczne</span>
+                        <span class="pricing-item">Aktualizacje</span>
+                    </div>
+                </div>
+                <div class="pricing-cta">
+                    <h4>Zainteresowany?</h4>
+                    <p>Porozmawiajmy o potrzebach Twojego lokalu i przygotujemy spersonalizowaną ofertę</p>
+                    <a href="https://t.me/tommygg22" class="btn-primary">
+                        Napisz do nas →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="contact-container">
+            <div class="contact-header">
+                <h2>Porozmawiajmy</h2>
+                <p>Wybierz wygodny sposób kontaktu. Odpowiadamy szybko.</p>
+            </div>
+            <div class="contact-grid">
+                <a href="https://t.me/tommygg22" class="contact-card">
+                    <div class="contact-icon">✈️</div>
+                    <span>Telegram</span>
+                    <strong>@tommygg22</strong>
+                </a>
+                <a href="tel:+48532368023" class="contact-card">
+                    <div class="contact-icon">📞</div>
+                    <span>Telefon</span>
+                    <strong class="phone-number">+48 532 368 023</strong>
+                </a>
+                <a href="mailto:echovoiceeee@gmail.com" class="contact-card">
+                    <div class="contact-icon">✉️</div>
+                    <span>Email</span>
+                    <strong>echovoiceeee@gmail.com</strong>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo">
+            <svg class="logo-svg" viewBox="0 0 40 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 2 L6 26 L22 26 C28 26 32 22 32 18 L32 18 C32 14 28 12 24 12 L24 12 C28 12 30 9 30 6 C30 3 27 2 22 2 L6 2 Z M12 7 L20 7 C23 7 24 8 24 9.5 C24 11 23 12 20 12 L12 12 L12 7 Z M12 16 L21 16 C25 16 26 17.5 26 19 C26 20.5 25 22 21 22 L12 22 L12 16 Z" fill="white"/>
+                <circle cx="20" cy="44" r="13" stroke="white" stroke-width="4" fill="none" stroke-dasharray="18 5"/>
+                <circle cx="20" cy="44" r="5" stroke="white" stroke-width="2.5" fill="none"/>
+            </svg>
+            <span>BRIDGENT</span>
+        </div>
+        <div class="footer-copy">© 2025 Echo Voice by BRIDGENT. Wszelkie prawa zastrzeżone.</div>
+    </footer>
+
+</body>
+</html>
